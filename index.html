@@ -8,8 +8,11 @@
 </head>
 <body>
     <script>
+let playerScore = 0;
+let computerScore = 0;
+let draws = 0;
 
-// Game (in console) //
+// Computer choice //
 function getRandomChoice() {
     let randomNumber = Math.floor(Math.random() *3)
     switch (randomNumber) {
@@ -22,33 +25,55 @@ function getRandomChoice() {
     } 
 };
 
+// Plays one round of rock paper scissors //
 function playRound(playerSelection, computerSelection) {
     if (
         (playerSelection === 'ROCK' && computerSelection === 'SCISSORS') ||
         (playerSelection === 'PAPER' && computerSelection === 'ROCK') ||
         (playerSelection === 'SCISSORS' && computerSelection === 'PAPER')
-        ) {
+        ) { playerScore++; 
             return playerSelection + " BEATS " + computerSelection + ". YOU WIN!"
-        } 
-    
-    if (
-            (computerSelection === 'SCISSORS' && playerSelection === 'PAPER') ||
-            (computerSelection === 'ROCK' && playerSelection === 'SCISSORS') ||
-            (computerSelection === 'PAPER' && playerSelection === 'ROCK')
-            ) {
-                return computerSelection + " BEATS " + playerSelection + ". YOU LOSE!"
-            }
-    if ( computerSelection === playerSelection) {
-        return "IT'S A TIE!"
-    }
+        } else if (computerSelection === playerSelection) {
+            return "IT'S A TIE!";
+        } else {
+            computerScore++;
+                return computerSelection + " BEATS " + playerSelection + ". COMPUTER WINS!"
+        }
 };
 
-const playerSelection = prompt("ROCK, PAPER, SCISSORS?").toUpperCase();
-const computerSelection = getRandomChoice();
-console.log(playRound(playerSelection, computerSelection));
 
-// Play 5 rounds //\ test for git push
+// Play 5 rounds //
 
-    </script>
+
+function playGame() {
+    for (let i = 0; i < 100; i++) {
+        playerSelection = prompt("Rock, Paper or Scissors?").toUpperCase();
+        let computerSelection = getRandomChoice();
+        let roundResult = playRound(playerSelection, computerSelection);
+        console.log(roundResult);
+        gameScore(roundResult);
+        console.log("Player Score: " + playerScore + " | Computer Score: " + computerScore);
+    }
+    if (playerScore == 5 || computerScore == 5) {
+        return;
+    }
+    
+}
+
+// Keeps score //
+let playerWin = "Player wins!"
+let computerWin = "Computer wins!"
+function gameScore(result) {
+    if (playerScore === 5){
+        console.log(playerWin)
+        return;}
+    
+        if (computerScore === 5){
+        console.log(computerWin);
+        return
+        }
+}
+console.log(playGame())
+</script>
 </body>
 </html>
